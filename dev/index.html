@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<title></title>
+	<script src = './d3/d3.v3.js'></script>
+	<style>
+		#parent_container{
+			border-style:none;	
+		}
+		.group_circle{
+			fill:none;
+			stroke:#000000;
+			stroke-width:3px;
+		}
+		#pseudo_circle{
+			fill:none;
+		}
+		.sub_group_circle{
+			fill:none;
+			stroke-width:2px;
+			stroke:#000000;
+		}
+	</style>
+
+</head>
+<body>
+	<svg id='parent_container' width = '1000px' height = '600px'>
+	<p>loading</p>
+	</svg>
+	<script>
+		var svg = d3.select('#parent_container');
+		var pCx = 500,pCy = 300,pCr = 260;
+		var numOfSubGroups = 5;
+		
+		svg.append('circle')
+		.attr('id','pseudo_circle')
+		.attr('cx',pCx)
+		.attr('cy',pCy)
+		.attr('r',pCr);
+		
+		svg.append('circle')
+		.attr('class','group_circle')
+		.attr('cx',pCx)
+		.attr('cy',pCy)
+		.attr('r',100);
+		
+		var i = 0;
+		
+		while(i<numOfSubGroups){
+			var sectAngle = 360/numOfSubGroups;
+			var theta = (i*sectAngle)*(3.14/180);
+						
+			svg.append('circle')
+			.attr('class','sub_group_circle')
+			.attr('cx',function(){return pCr*Math.cos(theta)+pCx;})
+			.attr('cy',function(){return pCr*Math.sin(theta)+pCy;})
+			.attr('r',40);
+		
+			i=i+1;
+		}
+		
+		d3.select('p').remove();
+	</script>	
+</body>
+</html>
